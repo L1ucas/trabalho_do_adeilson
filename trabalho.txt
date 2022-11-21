@@ -1,0 +1,48 @@
+a) SELECT * FROM public.produtos WHERE desconto IS NULL
+
+b) SELECT id_nf, id_item, cod_prod, valor_unit,
+	(valor_unit - valor_unit*desconto/100) AS valor_vendido
+   FROM public.produtos
+
+c) UPDATE public.produtos 
+   SET desconto = 0
+   WHERE desconto IS NULL
+
+d)
+SELECT id_nf, id_item, cod_prod, valor_unit,
+(quantidade*valor_unit) AS valor_total, desconto, 
+(valor_unit - valor_unit*desconto/100) AS valor_vendido
+FROM produtos
+
+e)
+SELECT id_nf, (quantidade * id_nf) AS valor_total FROM produtos ORDER BY id_nf
+
+f) 
+SELECT id_nf, 
+(valor_unit - (valor_unit*desconto/100)) AS valor_vendido 
+FROM produtos
+ORDER BY valor_vendido ASC
+
+g)
+SELECT cod_prod, quantidade FROM produtos ORDER BY quantidade DESC LIMIT 1
+
+h)
+SELECT id_nf, cod_prod, quantidade FROM produtos WHERE quantidade > 10 ORDER BY id_nf, cod_prod
+
+i)
+SELECT id_nf, (quantidade * valor_unit) AS valor_total 
+FROM produtos
+WHERE (quantidade * valor_unit) > 500
+
+j)
+SELECT cod_prod, AVG(desconto) AS media FROM produtos GROUP BY cod_prod
+
+k)
+SELECT cod_prod, 
+MIN(desconto) AS menor, 
+MAX(desconto) AS maior, 
+AVG(desconto) AS media 
+FROM produtos GROUP BY cod_prod
+
+l)
+SELECT id_nf, (COUNT (DISTINCT id_nf)) AS qtd_nf FROM produtos GROUP BY id_nf
